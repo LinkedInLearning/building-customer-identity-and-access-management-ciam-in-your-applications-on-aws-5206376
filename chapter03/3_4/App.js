@@ -79,31 +79,29 @@ function App() {
 
   if (auth.isAuthenticated) {
     return (
-      <div>
-        <div style={{ height: '200px' }}>
-          <pre> Hello: {auth.user?.profile.email} </pre>
-          <pre> ID Token: {auth.user?.id_token} </pre>
-          <pre> Access Token: {auth.user?.access_token} </pre>
-          <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-
+      <div class="w3-twothird w3-container">
+        <div>
           <button onClick={() => signOutRedirect()}>Sign out</button>
           <button onClick={() => registerPasskeyRedirect()}>Register Passkey</button>
+          <pre> Hello: {auth.user?.profile.email} </pre>
+          <pre> <b>ID Token:</b> {auth.user?.id_token} </pre>
+          <pre> <b>Access Token:</b> {auth.user?.access_token} </pre>
+          <pre> <b>Refresh Token:</b> {auth.user?.refresh_token} </pre>
           <br></br>
+          <h3>Bookstore actions:</h3>
           <button onClick={() => callListBooks()}>List books</button>
           <button onClick={() => callAddToFavorite()}>Add to Favorite</button>
         </div>
-        Response results:
         <div style={{ backgroundColor: 'lightgrey' }} dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
     );
   } else {
     return (
-      <div>
-        <div style={{ height: '200px' }}>
+      <div class="w3-twothird w3-container">
+        <div>
           <button onClick={() => auth.signinRedirect()}>Sign in</button>
           <button onClick={() => callListBooks()}>List books</button>
         </div>
-        Response results:
         <div style={{ backgroundColor: 'lightgrey' }} dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
     );
