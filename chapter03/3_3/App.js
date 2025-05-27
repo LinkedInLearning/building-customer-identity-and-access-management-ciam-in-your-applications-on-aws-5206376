@@ -19,9 +19,9 @@ function App() {
   const signOutRedirect = () => {
     auth.removeUser();
 
-    const clientId = "4gm4m86r2s175hqqsvp8es1fgc";
-    const logoutUri = "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/";
-    const cognitoDomain = "https://us-east-1cijtqmvhq.auth.us-east-1.amazoncognito.com";
+    const clientId = "<< client-id >>";
+    const logoutUri = "<< logout-url >>";
+    const cognitoDomain = "<< https://user-pool-domain >>";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
