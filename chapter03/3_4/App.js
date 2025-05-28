@@ -11,18 +11,18 @@ function App() {
   };
 
   const auth = useAuth();
-  const apiInvokeUrl = '<< API-endpoint >>';
 
   /**
    * signOutRedirect function called from signOut button and it redirects the user
    * to application's landing page after calling Cognito logout endpoint to end session
   **/
+  const clientId = "<< client-id >>";
+  const logoutUri = "<< logout-url >>";
+  const cognitoDomain = "<< https://user-pool-domain >>";
+  const redirectUri = "<< redirect-url >>";
+
   const signOutRedirect = () => {
     auth.removeUser();
-
-    const clientId = "<< client-id >>";
-    const logoutUri = "<< logout-url >>";
-    const cognitoDomain = "<< https://user-pool-domain >>";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
@@ -31,15 +31,15 @@ function App() {
    * register PassKey by redirecting to Cognito passkeys/add endpoint
    */
   const registerPasskeyRedirect = () => {
-    const clientId = "4gm4m86r2s175hqqsvp8es1fgc";
-    const redirectUri = "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/";
-    const cognitoDomain = "https://us-east-1cijtqmvhq.auth.us-east-1.amazoncognito.com";
     window.location.href = `${cognitoDomain}/passkeys/add?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
   };
+
+  const apiInvokeUrl = '<< API-endpoint >>';
 
   /**
    * callListBooks is a function that invokes REST API simulating an un-authenticated action
    */
+  
   const callListBooks = () => {
     fetch(apiInvokeUrl + '/listBooks', {
       method: "GET" // default, so we can ignore
@@ -48,11 +48,10 @@ function App() {
         console.log(data);
         updateHtml(JSON.stringify(data, null, 2));
       });
-
   };
 
   /**
-   * callListBooks is a function that invokes REST API simulating an un-authenticated action
+   * callAddToFavorite is a function that invokes REST API simulating an authenticated action
    */
   const callAddToFavorite = () => {
     fetch(apiInvokeUrl + '/addToFavorite', {

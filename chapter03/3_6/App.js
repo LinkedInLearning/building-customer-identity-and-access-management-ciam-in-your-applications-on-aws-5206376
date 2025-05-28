@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { useAuth } from "react-oidc-context";
 
+//import AWS client libraries
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-providers";
 
@@ -14,18 +15,18 @@ function App() {
   };
 
   const auth = useAuth();
-  const apiInvokeUrl = '<< API-endpoint >>';
 
   /**
    * signOutRedirect function called from signOut button and it redirects the user
    * to application's landing page after calling Cognito logout endpoint to end session
   **/
+  const clientId = "<< client-id >>";
+  const logoutUri = "<< logout-url >>";
+  const cognitoDomain = "<< https://user-pool-domain >>";
+  const redirectUri = "<< redirect-url >>";
+
   const signOutRedirect = () => {
     auth.removeUser();
-
-    const clientId = "<< client-id >>";
-    const logoutUri = "<< logout-url >>";
-    const cognitoDomain = "<< https://user-pool-domain >>";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
@@ -34,15 +35,15 @@ function App() {
    * register PassKey by redirecting to Cognito passkeys/add endpoint
    */
   const registerPasskeyRedirect = () => {
-    const clientId = "4gm4m86r2s175hqqsvp8es1fgc";
-    const redirectUri = "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/";
-    const cognitoDomain = "https://us-east-1cijtqmvhq.auth.us-east-1.amazoncognito.com";
     window.location.href = `${cognitoDomain}/passkeys/add?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
   };
+
+  const apiInvokeUrl = '<< API-endpoint >>';
 
   /**
    * callListBooks is a function that invokes REST API simulating an un-authenticated action
    */
+
   const callListBooks = () => {
     fetch(apiInvokeUrl + '/listBooks', {
       method: "GET" // default, so we can ignore
@@ -51,7 +52,6 @@ function App() {
         console.log(data);
         updateHtml(JSON.stringify(data, null, 2));
       });
-
   };
 
   /**
@@ -71,33 +71,14 @@ function App() {
       });
 
   };
-
-  /**
-   * callReadBook is a function that invokes REST API simulating an authenticated action
-   */
-  const callReadBook = () => {
-    fetch(apiInvokeUrl + '/readBook', {
-      method: "GET", // default, so we can ignore
-      headers: {
-        'Authorization': `Bearer ${auth.user.access_token}`,
-        //'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        updateHtml(JSON.stringify(data, null, 2));
-      });
-
-  };
-
   /**
    * readSampleChapter is a function that reads file from AWS S3
    */
-  const Region = 'us-east-1';
-  const UserPoolID = 'us-east-1_cIjTqmVhq';
-  const IdentityPoolID = 'us-east-1:cf6eeb46-fa9b-4c95-9b8c-3c75e9fc62d4';
-  const BucketName = 'bookstore-0001';
-  const ObjectKey = 'isbn-001/sample-chapter.txt';
+  const Region = '<<region>>';
+  const UserPoolID = '<<user-pool-id>>';
+  const IdentityPoolID = '<<identity-pool-id>>';
+  const BucketName = '<<bucket-name>>';
+  const ObjectKey = '<<object key - for example, isbn-001/sample-chapter.txt>>';
 
   const readSampleChapter = () => {
     const s3client = new S3Client({
@@ -121,6 +102,24 @@ function App() {
       }).catch((err) => {
         console.error('S3 GetObject Error:', err);
         updateHtml(err);
+      });
+
+  };
+
+  /**
+   * callReadBook is a function that invokes REST API simulating an authenticated action
+   */
+  const callReadBook = () => {
+    fetch(apiInvokeUrl + '/readBook', {
+      method: "GET", // default, so we can ignore
+      headers: {
+        'Authorization': `Bearer ${auth.user.access_token}`,
+        //'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        updateHtml(JSON.stringify(data, null, 2));
       });
 
   };

@@ -16,12 +16,13 @@ function App() {
    * signOutRedirect function called from signOut button and it redirects the user
    * to application's landing page after calling Cognito logout endpoint to end session
   **/
+  const clientId = "<< client-id >>";
+  const logoutUri = "<< logout-url >>";
+  const cognitoDomain = "<< https://user-pool-domain >>";
+  const redirectUri = "<< redirect-url >>";
+
   const signOutRedirect = () => {
     auth.removeUser();
-
-    const clientId = "<< client-id >>";
-    const logoutUri = "<< logout-url >>";
-    const cognitoDomain = "<< https://user-pool-domain >>";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
