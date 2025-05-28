@@ -1,0 +1,15 @@
+1. Let’s create a sample react application
+
+npx create-react-app sample-bookstore
+cd sample-bookstore
+npm install --save-dev web-vitals
+
+2. Let’s build and run this sample app before we start integrating with Cognito 
+
+npm install
+npm start
+
+3. Let’s add these libraries to our app.
+
+npm install oidc-client-ts react-oidc-context --save
+
