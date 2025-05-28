@@ -1,0 +1,13 @@
+1. Query to find sign-ins by risk decision
+
+fields message.riskDecision, message.eventType 
+| filter message.eventType = "SignIn" 
+| stats count() as count by message.riskDecision 
+| sort count desc
+
+2. Query to find sign-in attempts per IP address and username
+
+fields message.ipAddress, message.userName 
+| filter message.eventType = "SignIn" 
+| stats count() as signInCount by message.ipAddress, message.userName 
+| sort signInCount desc

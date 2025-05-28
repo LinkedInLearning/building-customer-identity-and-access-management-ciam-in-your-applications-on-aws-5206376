@@ -1,0 +1,9 @@
+1. Query to find top callers to cognito and at what rates.
+
+filter eventSource = "cognito-idp.amazonaws.com"
+| stats count(*) by sourceIPAddress, eventName
+
+2. Query to find number of records with sourceIPAddress and denied queries by AVP
+
+filter eventSource = "verifiedpermissions.amazonaws.com" and @message like /DENY/
+| stats count(*) by sourceIPAddress, eventName
