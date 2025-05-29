@@ -7,9 +7,9 @@ import App from './App';
 import { AuthProvider } from "react-oidc-context";
 
 const cognitoAuthConfig = {
-  authority: "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_cIjTqmVhq",
-  client_id: "4gm4m86r2s175hqqsvp8es1fgc",
-  redirect_uri: "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/",
+  authority: "<<user-pool-issuer>>",
+  client_id: "<<app-client-id>>",
+  redirect_uri: "<<application-redirect-url>>",
   response_type: "code",
   scope: "email openid phone bookstore/favorite.update",
 };
