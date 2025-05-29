@@ -14,7 +14,12 @@ function App() {
   };
 
   const auth = useAuth();
-  const apiInvokeUrl = 'https://1quiur394a.execute-api.us-east-1.amazonaws.com/prod';
+
+  const clientId = "<<app-client-id>>";
+  const redirectUri = "<<application-redirect-url>>";
+  const logoutUri = "<<application-redirect-url>>";
+  const cognitoDomain = "<<user-pool-domain>>";
+  const apiInvokeUrl = '<<api-endpoint-url>>';
 
   /**
    * signOutRedirect function called from signOut button and it redirects the user
@@ -22,10 +27,6 @@ function App() {
   **/
   const signOutRedirect = () => {
     auth.removeUser();
-
-    const clientId = "4gm4m86r2s175hqqsvp8es1fgc";
-    const logoutUri = "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/";
-    const cognitoDomain = "https://us-east-1cijtqmvhq.auth.us-east-1.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
@@ -34,9 +35,6 @@ function App() {
    * register PassKey by redirecting to Cognito passkeys/add endpoint
    */
   const registerPasskeyRedirect = () => {
-    const clientId = "4gm4m86r2s175hqqsvp8es1fgc";
-    const redirectUri = "https://fluffy-tribble-6vggp6xvx4r35vrg-3000.app.github.dev/";
-    const cognitoDomain = "https://us-east-1cijtqmvhq.auth.us-east-1.amazoncognito.com";
     window.location.href = `${cognitoDomain}/passkeys/add?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
   };
 
@@ -93,11 +91,11 @@ function App() {
   /**
    * readSampleChapter is a function that reads file from AWS S3
    */
-  const Region = 'us-east-1';
-  const UserPoolID = 'us-east-1_cIjTqmVhq';
-  const IdentityPoolID = 'us-east-1:cf6eeb46-fa9b-4c95-9b8c-3c75e9fc62d4';
-  const BucketName = 'bookstore-0001';
-  const ObjectKey = 'isbn-001/sample-chapter.txt';
+  const Region = '<<region>>';
+  const UserPoolID = '<<user-pool-id>>';
+  const IdentityPoolID = '<<identity-pool-id>>';
+  const BucketName = '<<bucket-name>>';
+  const ObjectKey = '<<object-key; e.g. isbn-001/sample-chapter.txt>>';
 
   const readSampleChapter = () => {
     const s3client = new S3Client({
